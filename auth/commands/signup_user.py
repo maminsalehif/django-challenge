@@ -29,23 +29,30 @@ class SignupUserCommandHandler:
         if user_or_error.is_success:
             return Result.fail(DomainError("PhoneNumberAlreadyExist", None))
 
-        user = User.create(
-            user_id=UserID(id_=user_or_error.value.user_id),
-            phone_number=user_or_error.value.phone_number,
-            fullname=user_or_error.value.fullname
+        user_or_error = User.create(
+            user_id=UserID(id_=command.user_id),
+            phone_number=command.phone_number,
+            fullname=command.fullname
         )
-        # TODO hash password
-        user_credential = UserCredential.create(
-            user_id=user.user_id,
-            phone_number=user.phone_number,
-            hashed_password=user_or_error.value.password
-        )
+        if user_or_error.is_failure:
+            return Result.fail(user_or_error.error)
 
-        success_or_error = self._uow.user_credential_repository.create_user_credential(user_credential)
+        # TODO hash password
+        user_credential_or_error = UserCredential.create(
+            user_id=user_or_error.value.user_id,
+            phone_number=user_or_error.value.phone_number,
+            hashed_password=command.password
+        )
+        if user_credential_or_error.is_failure:
+            return Result.fail(user_credential_or_error.error)
+
+        success_or_error = self._uow.user_credential_repository.create_user_credential(
+            user_credential=user_credential_or_error.value
+        )
         if success_or_error.is_failure:
             return Result.fail(success_or_error.error)
 
-        success_or_error = self._uow.user_repository.creat_user(user=user)
+        success_or_error = self._uow.user_repository.creat_user(user=user_or_error.value)
         if success_or_error.is_failure:
             return Result.fail(success_or_error.error)
 
