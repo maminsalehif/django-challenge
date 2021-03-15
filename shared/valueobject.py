@@ -13,3 +13,13 @@ class DomainError:
 @dataclass
 class UserID:
     id_: str
+
+
+@dataclass
+class StadiumID:
+    id_: str
+
+
+@dataclass
+class SeatID:
+    id_: str

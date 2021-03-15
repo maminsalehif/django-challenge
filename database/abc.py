@@ -1,8 +1,10 @@
 from abc import ABCMeta, abstractmethod
+from typing import List
 
 from auth.entity import User, UserCredential
 from shared.result import Result
-from shared.valueobject import UserID
+from shared.valueobject import UserID, StadiumID
+from volleyball_federation.entity import Stadium
 
 
 class UnitOfWorkABC(metaclass=ABCMeta):
@@ -55,3 +57,11 @@ class UserCredentialRepositoryABC(metaclass=ABCMeta):
     def create_user_credential(self, user_credential: UserCredential) -> Result: pass
 
     def get_user_credential_by_phone_number(self, phone_number: str) -> Result: pass
+
+
+class StadiumRepositoryABC(metaclass=ABCMeta):
+    def create_stadium(self, stadium: Stadium) -> Result: pass
+
+    def get_stadium(self, stadium_id: StadiumID) -> Result: pass
+
+    def check_seats_placed_in_the_stadium(self, seat_ids: List[StadiumID]) -> Result: pass
