@@ -1,8 +1,9 @@
 from dataclasses import dataclass, field
+from datetime import datetime
 from typing import List
 
 from shared.result import Result
-from shared.valueobject import StadiumID, SeatID, TeamID
+from shared.valueobject import StadiumID, SeatID, TeamID, MatchID, DomainError
 
 """
 Stadium Aggregate(DDD)
@@ -50,4 +51,25 @@ class Team:
 
     @staticmethod
     def create(**kwargs):
+        return Result.ok(Team(**kwargs))
+
+
+"""
+Volleyball Match Aggregate
+"""
+
+
+class Match:
+    match_id: MatchID
+    host_team_id: TeamID
+    guest_team_id: TeamID
+    stadium_id: StadiumID
+    stadium_seats: List[SeatID] = field(default_factory=list)
+    time: datetime
+
+    @staticmethod
+    def create(**kwargs):
+        if kwargs['host_team_id'] == kwargs['guest_team_id']:
+            return Result.fail(DomainError("TeamsAreTheSame", None))
+
         return Result.ok(Team(**kwargs))

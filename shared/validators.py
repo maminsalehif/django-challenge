@@ -63,3 +63,8 @@ class Number(Validator):
             raise ValueError(
                 f'Expected {value!r} to be no more than {self.maxvalue!r}'
             )
+
+
+class Timestamp(Number):
+    def __init__(self, **kwargs):
+        super().__init__(minvalue=kwargs.pop('minvalue', 1), **kwargs)

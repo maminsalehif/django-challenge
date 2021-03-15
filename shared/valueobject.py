@@ -28,3 +28,8 @@ class SeatID:
 @dataclass
 class TeamID:
     id_: str
+
+
+@dataclass
+class MatchID:
+    id_: str
