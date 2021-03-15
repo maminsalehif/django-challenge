@@ -8,3 +8,8 @@ T = TypeVar("T")
 class DomainError:
     message: str
     value: T
+
+
+@dataclass
+class UserID:
+    id_: str
