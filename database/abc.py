@@ -76,7 +76,7 @@ class StadiumRepositoryABC(metaclass=ABCMeta):
 
     def get_stadium(self, stadium_id: StadiumID) -> Result: pass
 
-    def check_seats_placed_in_the_stadium(self, seat_ids: List[StadiumID]) -> Result: pass
+    def check_seats_placed_in_the_stadium(self, seat_ids: List[SeatID], stadium_id: StadiumID) -> Result: pass
 
 
 class TeamRepositoryABC(metaclass=ABCMeta):
@@ -89,5 +89,7 @@ class MatchRepositoryABC(metaclass=ABCMeta):
     def create_match(self, match: Match) -> Result: pass
 
     def get_match(self, match_id: MatchID) -> Result: pass
+
+    def add_new_seats_for_the_match(self, seat_ids: List[SeatID], match_id: MatchID) -> Result: pass
 
     def check_seats_placed_in_the_match(self, seat_ids: List[SeatID], match_id: MatchID) -> Result: pass

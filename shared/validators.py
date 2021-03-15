@@ -65,6 +65,24 @@ class Number(Validator):
             )
 
 
+class List(Validator):
+    def __init__(self, minlength=None, maxlength=None):
+        self.minlength = minlength
+        self.maxlength = maxlength
+
+    def validate(self, value):
+        if not isinstance(value, list):
+            raise TypeError(f'Expected value to be an list')
+        if self.minlength is not None and len(value) < self.minlength:
+            raise ValueError(
+                f'Expected list to be no smaller than {self.minlength!r}'
+            )
+        if self.maxlength is not None and len(value) > self.maxlength:
+            raise ValueError(
+                f'Expected list to be no bigger than {self.maxlength!r}'
+            )
+
+
 class Timestamp(Number):
     def __init__(self, **kwargs):
         super().__init__(minvalue=kwargs.pop('minvalue', 1), **kwargs)
