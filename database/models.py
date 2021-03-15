@@ -1,9 +1,9 @@
 from datetime import datetime
 
-from sqlalchemy import Column, Integer, String, Float
+from sqlalchemy import Column, Integer, String, Float, ARRAY
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.ext.mutable import MutableList
 
+from database.mutable_array import MutableList
 from auth.entity import User, UserCredential
 from shared.valueobject import UserID, StadiumID, SeatID, TeamID, MatchID
 from volleyball_federation.entity import Stadium, Seat, Team, Match
@@ -67,7 +67,7 @@ class StadiumModel(Base):
     id = Column(Integer, primary_key=True)
     stadium_id = Column(String, unique=True)
     name = Column(String)
-    seats = Column(MutableList.as_mutable(String))
+    seats = Column(MutableList.as_mutable(ARRAY(String)))
 
     def to_entity(self) -> Stadium:
         return Stadium(
@@ -114,7 +114,7 @@ class MatchModel(Base):
     host_team_id = Column(String)
     guest_team_id = Column(String)
     stadium_id = Column(String)
-    stadium_seats = Column(MutableList.as_mutable(String))
+    stadium_seats = Column(MutableList.as_mutable(ARRAY(String)))
     time = Column(Float)
 
     def to_entity(self) -> Match:
