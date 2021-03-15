@@ -36,6 +36,10 @@ class UnitOfWorkABC(metaclass=ABCMeta):
     @abstractmethod
     def user_credential_repository(self) -> 'UserCredentialRepositoryABC': pass
 
+    @property
+    @abstractmethod
+    def stadium_repository(self) -> 'StadiumRepositoryABC': pass
+
 
 class UserRepositoryABC(metaclass=ABCMeta):
     """
