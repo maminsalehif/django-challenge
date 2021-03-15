@@ -1,0 +1,67 @@
+PUT http://localhost:5000/api/federation/match/define_match_seats
+Content-Type: application/json
+
+{
+  "match_id": "d60cded2-d764-4df8-be03-b1580a7b3abe",
+  "seat_ids": [
+    "SEAT1",
+    "SEAT3",
+    "SEAT5"
+  ]
+}
+
+###
+
+
+POST http://localhost:5000/api/federation/match/new_match
+Content-Type: application/json
+
+{
+  "host_team_id": "8c2e5469-69c9-4e87-8608-fac69aaedeeb",
+  "guest_team_id": "b7cf4b7c-ff30-4988-801a-33d185f6401a",
+  "stadium_id": "b6e27ac3-6257-4724-aeae-36b7560766db",
+  "time": 1615881416
+}
+
+###
+
+POST http://localhost:5000/api/federation/stadium/build_stadium
+Content-Type: application/json
+
+{
+  "name": "Stadium 06",
+  "capacity": 1000
+}
+
+###
+
+POST http://localhost:5000/api/federation/team/create_team
+Content-Type: application/json
+
+{
+  "name": "Team 06"
+}
+
+###
+
+POST http://localhost:5000/api/auth/login
+Content-Type: application/json
+
+{
+  "phone_number": "09366190362",
+  "password": "123456789"
+}
+
+###
+POST http://localhost:5000/api/auth/signup
+Content-Type: application/json
+
+{
+  "phone_number": "09366190366",
+  "fullname": "Amin Salehi",
+  "password": "1245789632"
+}
+
+###
+
+
