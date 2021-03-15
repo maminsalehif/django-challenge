@@ -30,5 +30,6 @@ class LoginUserCommandHandler:
 
         # Warning: login usecase is not an command in CQRS pattern
         # TODO create jwt token
-        jwt = ""
+        # fake jwt
+        jwt = f"JWT {user_or_error.value.user_id.id_}"
         return Result.ok(jwt)
