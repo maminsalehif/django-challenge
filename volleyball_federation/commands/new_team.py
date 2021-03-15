@@ -6,7 +6,7 @@ from volleyball_federation.entity import Team, TeamID
 
 
 class CreateTeamCommand(CommandABC):
-    team_id = String(minsize=8, maxsize=32)
+    team_id = String(minsize=8, maxsize=36)
     name = String(minsize=2, maxsize=150)
 
     def __init__(self, team_id: str, name: str):

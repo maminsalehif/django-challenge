@@ -24,4 +24,4 @@ class UserCredential:
 
     @staticmethod
     def create(**kwargs):
-        return Result.ok(User(**kwargs))
+        return Result.ok(UserCredential(**kwargs))

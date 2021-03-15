@@ -1,4 +1,4 @@
-from database.abc import UnitOfWorkABC
+from database.unit_of_work import UnitOfWorkABC
 from shared.cqrs import CommandABC
 from shared.result import Result
 from shared.validators import String, List
@@ -6,7 +6,7 @@ from shared.valueobject import MatchID, DomainError, SeatID
 
 
 class DefineMatchSeatsCommand(CommandABC):
-    match_id = String(minsize=8, maxsize=32)
+    match_id = String(minsize=8, maxsize=36)
     seat_ids = List(minlength=1)
 
     def __init__(self, match_id: str, seat_ids: list):
@@ -29,6 +29,8 @@ class DefineMatchSeatsCommandHandler:
         )
         if check_seats_result.is_failure:
             return Result.fail(DomainError("InvalidSeatIDs", None))
+
+        # TODO Check that none of the seats already exist in the match.
 
         success_or_error = self._uow.match_repository.add_new_seats_for_the_match(
             seat_ids=new_seats, match_id=match_or_error.value.match_id

@@ -1,22 +1,21 @@
 from datetime import datetime
-from typing import Any
+from typing import Union
 
-from database.abc import UnitOfWorkABC
 from shared.cqrs import CommandABC
 from shared.result import Result
 from shared.validators import String, Timestamp
-from shared.valueobject import DomainError, TeamID, StadiumID
+from shared.valueobject import DomainError, TeamID, StadiumID, MatchID
 from volleyball_federation.entity import Match
 
 
 class CreateMatchCommand(CommandABC):
-    match_id = String(minsize=8, maxsize=32)
-    host_team_id = String(minsize=8, maxsize=32)
-    guest_team_id = String(minsize=8, maxsize=32)
-    stadium_id = String(minsize=8, maxsize=32)
+    match_id = String(minsize=8, maxsize=36)
+    host_team_id = String(minsize=8, maxsize=36)
+    guest_team_id = String(minsize=8, maxsize=36)
+    stadium_id = String(minsize=8, maxsize=36)
     time = Timestamp()
 
-    def __init__(self, match_id: str, host_team_id: str, guest_team_id: str, stadium_id: str, time: Any[int, float]):
+    def __init__(self, match_id: str, host_team_id: str, guest_team_id: str, stadium_id: str, time: Union[int, float]):
         super().__init__(
             match_id=match_id, host_team_id=host_team_id, guest_team_id=guest_team_id, stadium_id=stadium_id,
             time=time
@@ -24,7 +23,7 @@ class CreateMatchCommand(CommandABC):
 
 
 class CreateMatchCommandHandler:
-    def __init__(self, unit_of_work: UnitOfWorkABC):
+    def __init__(self, unit_of_work):
         self._uow = unit_of_work
 
     def execute(self, command: CreateMatchCommand) -> Result:
@@ -41,6 +40,7 @@ class CreateMatchCommandHandler:
             return Result.fail(DomainError("StadiumNotFound", None))
 
         match_or_error = Match.create(
+            match_id=MatchID(command.match_id),
             host_team_id=host_team_or_error.value.team_id,
             guest_team_id=guest_team_or_error.value.team_id,
             stadium_id=stadium_or_error.value.stadium_id,

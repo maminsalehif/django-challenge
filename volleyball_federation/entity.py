@@ -73,4 +73,4 @@ class Match:
         if kwargs['host_team_id'] == kwargs['guest_team_id']:
             return Result.fail(DomainError("TeamsAreTheSame", None))
 
-        return Result.ok(Team(**kwargs))
+        return Result.ok(Match(**kwargs))

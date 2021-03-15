@@ -14,8 +14,8 @@ class SignupUserCommand(CommandABC):
     fullname = String(minsize=2, maxsize=50)
     password = String(minsize=8, maxsize=32)
 
-    def __init__(self, phone_number: str, password: str):
-        super().__init__(phone_number=phone_number, password=password)
+    def __init__(self, user_id: str, phone_number: str, fullname: str, password: str):
+        super().__init__(user_id=user_id, phone_number=phone_number, fullname=fullname, password=password)
 
 
 class SignupUserCommandHandler:

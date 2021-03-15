@@ -1,4 +1,4 @@
-from database.abc import UnitOfWorkABC
+from database.unit_of_work import UnitOfWorkABC
 from shared.cqrs import CommandABC
 from shared.valueobject import DomainError
 from shared.result import Result

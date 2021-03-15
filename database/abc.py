@@ -4,7 +4,6 @@ from typing import List
 from auth.entity import User, UserCredential
 from shared.result import Result
 from shared.valueobject import UserID, StadiumID, TeamID, MatchID, SeatID
-from volleyball_federation.entity import Stadium, Team, Match
 
 
 class UnitOfWorkABC(metaclass=ABCMeta):
@@ -78,7 +77,7 @@ class UserCredentialRepositoryABC(metaclass=ABCMeta):
 
 class StadiumRepositoryABC(metaclass=ABCMeta):
     @abstractmethod
-    def create_stadium(self, stadium: Stadium) -> Result: pass
+    def create_stadium(self, stadium) -> Result: pass
 
     @abstractmethod
     def get_stadium(self, stadium_id: StadiumID) -> Result: pass
@@ -89,7 +88,7 @@ class StadiumRepositoryABC(metaclass=ABCMeta):
 
 class TeamRepositoryABC(metaclass=ABCMeta):
     @abstractmethod
-    def create_team(self, team: Team) -> Result: pass
+    def create_team(self, team: 'Team') -> Result: pass
 
     @abstractmethod
     def get_team(self, team_id: TeamID) -> Result: pass
@@ -97,7 +96,7 @@ class TeamRepositoryABC(metaclass=ABCMeta):
 
 class MatchRepositoryABC(metaclass=ABCMeta):
     @abstractmethod
-    def create_match(self, match: Match) -> Result: pass
+    def create_match(self, match: 'Match') -> Result: pass
 
     @abstractmethod
     def get_match(self, match_id: MatchID) -> Result: pass

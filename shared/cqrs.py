@@ -20,7 +20,7 @@ class CommandABC(metaclass=ABCMeta):
         try:
             command = cls(**a_dict)
             return Result.ok(command)
-        except ValueError as e:
+        except (TypeError,ValueError) as e:
             return Result.fail(DomainError("ValidationError", e))
 
 

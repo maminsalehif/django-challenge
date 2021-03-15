@@ -26,6 +26,7 @@ class StadiumRepository(StadiumRepositoryABC):
         return Result.ok(model_or_none.to_entity())
 
     def check_seats_placed_in_the_stadium(self, seat_ids: List[SeatID], stadium_id: StadiumID) -> Result:
+        # TODO Oops all functions dose not work
         result = self.session.query(StadiumModel).filter(
             and_(
                 StadiumModel.seats.all(list(map(lambda seat_id: seat_id.id_, seat_ids))),
@@ -33,7 +34,7 @@ class StadiumRepository(StadiumRepositoryABC):
             )
         ).exists()
 
-        if not result:
+        if result is False:
             return Result.fail(DomainError("SeatsNotExists", None))
 
         return Result.ok(True)

@@ -41,7 +41,7 @@ class MatchRepository(MatchRepositoryABC):
             )
         ).exists()
 
-        if not result:
+        if result is False:
             return Result.fail(DomainError("SeatsNotExists", None))
 
         return Result.ok(True)
