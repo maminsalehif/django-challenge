@@ -59,13 +59,14 @@ Volleyball Match Aggregate
 """
 
 
+@dataclass
 class Match:
     match_id: MatchID
     host_team_id: TeamID
     guest_team_id: TeamID
     stadium_id: StadiumID
-    stadium_seats: List[SeatID] = field(default_factory=list)
     time: datetime
+    stadium_seats: List[SeatID] = field(default_factory=list)
 
     @staticmethod
     def create(**kwargs):
