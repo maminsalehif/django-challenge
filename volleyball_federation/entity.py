@@ -2,7 +2,7 @@ from dataclasses import dataclass, field
 from typing import List
 
 from shared.result import Result
-from shared.valueobject import StadiumID, SeatID
+from shared.valueobject import StadiumID, SeatID, TeamID
 
 """
 Stadium Aggregate(DDD)
@@ -36,3 +36,18 @@ def _generate_seats_base_on_capacity(capacity):
 @dataclass
 class Seat:
     seat_id: SeatID
+
+
+"""
+Team Aggregate
+"""
+
+
+@dataclass
+class Team:
+    team_id: TeamID
+    name: str
+
+    @staticmethod
+    def create(**kwargs):
+        return Result.ok(Team(**kwargs))

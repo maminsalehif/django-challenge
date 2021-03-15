@@ -23,3 +23,8 @@ class StadiumID:
 @dataclass
 class SeatID:
     id_: str
+
+
+@dataclass
+class TeamID:
+    id_: str

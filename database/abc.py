@@ -3,8 +3,8 @@ from typing import List
 
 from auth.entity import User, UserCredential
 from shared.result import Result
-from shared.valueobject import UserID, StadiumID
-from volleyball_federation.entity import Stadium
+from shared.valueobject import UserID, StadiumID, TeamID
+from volleyball_federation.entity import Stadium, Team
 
 
 class UnitOfWorkABC(metaclass=ABCMeta):
@@ -40,6 +40,10 @@ class UnitOfWorkABC(metaclass=ABCMeta):
     @abstractmethod
     def stadium_repository(self) -> 'StadiumRepositoryABC': pass
 
+    @property
+    @abstractmethod
+    def team_repository(self) -> 'TeamRepositoryABC': pass
+
 
 class UserRepositoryABC(metaclass=ABCMeta):
     """
@@ -69,3 +73,9 @@ class StadiumRepositoryABC(metaclass=ABCMeta):
     def get_stadium(self, stadium_id: StadiumID) -> Result: pass
 
     def check_seats_placed_in_the_stadium(self, seat_ids: List[StadiumID]) -> Result: pass
+
+
+class TeamRepositoryABC(metaclass=ABCMeta):
+    def create_team(self, team: Team) -> Result: pass
+
+    def get_team(self, team_id: TeamID) -> Result: pass
