@@ -58,38 +58,52 @@ class UserRepositoryABC(metaclass=ABCMeta):
     There is one repository for each Aggregate root(DDD)
     """
 
+    @abstractmethod
     def creat_user(self, user: User) -> Result: pass
 
+    @abstractmethod
     def get_user(self, user_id: UserID) -> Result: pass
 
+    @abstractmethod
     def get_user_by_phone_number(self, phone_number: str) -> Result: pass
 
 
 class UserCredentialRepositoryABC(metaclass=ABCMeta):
+    @abstractmethod
     def create_user_credential(self, user_credential: UserCredential) -> Result: pass
 
+    @abstractmethod
     def get_user_credential_by_phone_number(self, phone_number: str) -> Result: pass
 
 
 class StadiumRepositoryABC(metaclass=ABCMeta):
+    @abstractmethod
     def create_stadium(self, stadium: Stadium) -> Result: pass
 
+    @abstractmethod
     def get_stadium(self, stadium_id: StadiumID) -> Result: pass
 
+    @abstractmethod
     def check_seats_placed_in_the_stadium(self, seat_ids: List[SeatID], stadium_id: StadiumID) -> Result: pass
 
 
 class TeamRepositoryABC(metaclass=ABCMeta):
+    @abstractmethod
     def create_team(self, team: Team) -> Result: pass
 
+    @abstractmethod
     def get_team(self, team_id: TeamID) -> Result: pass
 
 
 class MatchRepositoryABC(metaclass=ABCMeta):
+    @abstractmethod
     def create_match(self, match: Match) -> Result: pass
 
+    @abstractmethod
     def get_match(self, match_id: MatchID) -> Result: pass
 
+    @abstractmethod
     def add_new_seats_for_the_match(self, seat_ids: List[SeatID], match_id: MatchID) -> Result: pass
 
+    @abstractmethod
     def check_seats_placed_in_the_match(self, seat_ids: List[SeatID], match_id: MatchID) -> Result: pass
